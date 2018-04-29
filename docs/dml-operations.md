@@ -1,0 +1,171 @@
+# SELECT & DML (Data Modification Language)
+
+[Retour au sommaire](./../README.md#Sommaire)
+
+Les opéraitions DML sont celles qui permettent soit d'alimenter, soit de lire les données présentes dans les tables. Il existe donc des commandes pour lire `SELECT`, insérer `INSERT`, modifier `UPDATE` ou supprimer `DELETE` les données.
+
+> À partir de là, nous allons utiliser la base Northwind.
+
+## SELECT
+
+Pour lire les données d'une table, on utilise la commande
+
+```SQL
+SELECT {
+    *
+    | <table_identifier>.<column_name>
+    | <function_name>
+} [ AS <new_name> ]
+FROM <table_name> [ AS <table_identifier> ]
+    <joins>
+WHERE <logical_operations>
+ORDER BY <column_name> [ , ...n ]
+```
+
+Le principe d'une requête `SELECT` est de choisir les informations que l'on souhaite afficher (située après le `SELECT`) à partir d'une source de données située après le `FROM`. De filtrer ce résultat avec une clause `WHERE` et de choisir l'ordre d'affichage des lignes avec la clause `ORDER BY`.
+
+La syntaxe de base est relativement simple. La complexité viendra de plusieurs éléments :
+
+* Des jointures entres les tables nombreuses et complexes.
+* De sous-requêtes présentes dans les clauses `SELECT`, `FROM` ou `WHERE`.
+* De clauses `WHERE` compliquées
+* ...
+
+> Pour obtenir la liste des produits vendus avec toutes les colonnes de la table :
+
+```SQL
+SELECT *
+FROM [Production].[Product]
+```
+
+> Pour obtenir la liste des produits vendus avec leurs noms et leur code :
+
+```SQL
+SELECT P.[Name], P.[ProductNumber] AS [Code]
+FROM [Production].[Product] P
+```
+
+### WHERE
+
+La clause `WHERE` permet de filtrer un jeu de données. On effectue cela en écrivant des tests logiques et en les combinant avec des ET logiques `AND` ou des OU logiqes `OR`. Des parenthèses peuvent être utilisées pour indiquer de la précédence.
+
+> Pour obtenir la liste des produits (nom et code) qui sont de couleur noire et dont le seuil de stock est supérieur à 500 et qu'il faut recommander si on en a moins de 1000 :
+
+```SQL
+SELECT P.[Name], P.[ProductNumber] AS [Code]
+FROM [Production].[Product] P
+WHERE P.[Color] = 'Black' AND (P.[SafetyStockLevel] > 500 OR P.[ReorderPoint] < 1000);
+```
+
+### ORDER BY
+
+La clause `ORDER BY` permet de trier le résultat. Elle s'utilise en listant les colonnes sur lesquelles on souhaite trier et en ajoutant l'information si le tri doit être ascendant `ASC` ou descendant `DESC`.
+
+> En partant de la requête filtrée, si on souhaite ordonner le résultat par seuil de stock ascendant et prix standard descendant :
+
+```SQL
+SELECT P.[Name], P.[ProductNumber] AS [Code]
+FROM [Production].[Product] P
+WHERE P.[Color] = 'Black' AND (P.[SafetyStockLevel] > 500 OR P.[ReorderPoint] < 1000)
+ORDER BY P.[SafetyStockLevel] ASC, P.[StandardCost] DESC;
+```
+
+### DISTINCT
+
+Le mot-clé `DISTINCT` permet de dédoublonner le résultat d'une requête. Chaque groupe de valeur n'apparaitra qu'une seule fois dans le résultat.
+
+> Pour obtenir de façon unique tous les noms de groupe des départements :
+
+```SQL
+SELECT DISTINCT D.[GroupName]
+FROM [HumanResources].[Department] D;
+```
+
+### TOP x
+
+Le mot-clé `TOP <value> [ PERCENT ]` s'utilise avec une valeur numérique qui indique le nombre de ligne à ramener. Si le mot clé `PERCENT` est ajouté, la requête ramènera les X premier pourcent.
+
+> Pour avoir un set de 10% des produits commandés :
+
+```SQL
+SELECT TOP 10 PERCENT *
+FROM [Sales].[SalesOrderDetail]
+```
+
+> Attention, pour pouvoir utiliser le mot-clé `PERCENT`, le moteur de base de données doit calculer le nombre total de ligne ramené par la requête pour pouvoir convertir les X pourcents en valeur fixe. Cela peut être gourmand et ralentir la requête.
+
+## INSERT
+
+L'insertion de donées dans une table s'effectue avec le mot-clé `INSERT` :
+
+```SQL
+INSERT
+{
+    INTO <table_name> [ ( column_list ) ]
+    {
+        VALUES ( { DEFAULT | NULL | expression } [ ,...n ] ) [ ,...n ]
+        | <dml_table_source>
+    }
+};
+
+<dml_table_source> ::=
+    SELECT <select_list>
+    FROM ( <dml_statement_with_output_clause> ) [AS] table_alias
+    [ WHERE <search_condition> ]
+```
+
+On peut donc soit insérer des données avec des valeurs fixes (utilisation de `VALUES`), soit insérer des données à partir d'une requête `SELECT`.
+
+Lorsque l'on insère les données dans une table, il faut prendre en compte différents éléments :
+
+* Est-ce qu'il a des colonnes avec des valeurs par défaut ?
+* Est-ce que la clé primaire est une colonne entière auto-incrémentée ?
+* Quels sont les colonnes acceptant NULL et celles qui doivent obligatoirement avoir une valeur ?
+
+S'il n'y a de clé primaire auto-incrémentée, on peut omettre la liste des colonnes. Par contre, il faut que les données à insérer aient exactement le même format que la table.
+
+Généralement, on liste plutôt les colonnes afin de contrôler au mieux l'insertion des données.
+
+> Pour insérer une nouveau type d'adresse, on peut omettre la colonne AddressTypeId car c'est une clé primaire auto-incrémentée, les colonnes rowguid et ModifiedDate car elles ont une valeur par défaut. Par contre la colonne Name est obligatoire (NOT NULL) et n'a pas de valeur par défaut. On peut donc écrire :
+
+```SQL
+INSERT INTO [Person].[AddressType] ([Name]) VALUES
+    ('Type1'),
+    ('Type2');
+```
+
+ou
+
+```SQL
+INSERT INTO [Person].[AddressType] ([Name]) VALUES
+    SELECT <column_name> FROM <table_name>;
+```
+
+## UPDATE
+
+## DELETE
+
+## MERGE
+
+## Exercices
+
+Voici ce que vous devez faire :
+
+1. Les RH souhaitent connaitre tous les départements existants.
+1. Les achats souhaitent avoir les produits mis en vente depuis le 1er janvier 2015 classé par prix standard croissant.
+1. Ajouter un département 'French stores' dans le group 'Stores'.
+1. Il y a une erreur dans la commande du magasin 'Seventh Bike Store' faite le 31 mai 2011. Ils souhaitaient commander 3 'Sport-100 Helmet, Black'. Faites un script de modification.
+1. Finalement, il faut supprimer le département 'French stores'.
+1. Créer une requête `MERGE` permettant de s'assurer que l'on a dans la table AddressType, les informations suivantes
+
+AddressTypeID|Name|rowguid|ModifiedDate
+---|---|---|---
+1|Billing|B84F78B1-4EFE-4A0E-8CB7-70E9F112F886|2008-04-30 00:00:00.000
+2|Home|41BC2FF6-F0FC-475F-8EB9-CEC0805AA0F2|2008-04-30 00:00:00.000
+3|Main Office|8EEEC28C-07A2-4FB9-AD0A-42D4A0BBC575|2008-04-30 00:00:00.000
+4|Primary|24CB3088-4345-47C4-86C5-17B535133D1E|2008-04-30 00:00:00.000
+5|Shipping|B29DA3F8-19A3-47DA-9DAA-15C84F4A83A5|2008-04-30 00:00:00.000
+6|Archives|A67F238A-5BA2-444B-966C-0467ED9C427F|2008-04-30 00:00:00.000
+7|Factory|6658C6D7-F87A-4BD4-9892-C2ADCA22328D|2018-04-27 00:00:00.000
+
+> Tips: La première colonne est une colonne `IDENTITY`. Le moteur interdit donc de spécifier la valeur de cette colonne lors d'une insertion ou d'une modification. Il est possible de désactiver ce fonctionnement en utilisant la commande `SET IDENTITY_INSERT <table_name> ON | OFF`.
