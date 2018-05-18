@@ -1,6 +1,7 @@
-# Le modèle relationnel
+# 1. Le modèle relationnel
 
-[Retour au sommaire](./../README.md#Sommaire)
+* [Retour au sommaire](./../README.md#Sommaire)
+  * [2. Best practices](./2-best-practices.md)
 
 ## Introduction
 

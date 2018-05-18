@@ -4,6 +4,8 @@
 
 ## CTE / Récursivité
 
-## Procédire stockées
+## Procédure stockées
+
+## Functions
 
 ## Tables temporaires

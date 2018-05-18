@@ -1,6 +1,8 @@
-# DDL (Data Definition Language)
+# 3. DDL (Data Definition Language)
 
-[Retour au sommaire](./../README.md#Sommaire)
+* [Retour au sommaire](./../README.md#Sommaire)
+  * [2. Best practices](./2-best-practices.md)
+  * [4. Les opérations de bases](./4-dml-operations.md)
 
 Les opérations de DDL permettent de créer dans la base de données, tous les éléments qui ne sont pas des données à proprement parlé. Par exemple, elles permettent de créer les tables, colonnes, contraintes mais aussi les procédure stockées, les fonctions, les utilisateurs qui accèdent à la base de données, leurs droits, ...
 
@@ -121,7 +123,7 @@ ALTER TABLE <table_name> ALTER {
 
 ### Premières tables
 
-Créer  une base relationnel permettant de stocker les données répondants aux règles ci-dessous :
+Créer une base relationnel permettant de stocker les données répondants aux règles ci-dessous :
 
 * Nous allons stocker des personnes et leur adresses mails.
 * Une personne a un nom, un prénom et une date de naissance.
