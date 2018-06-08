@@ -15,9 +15,6 @@ CREATE TABLE [RightTable] (
 	CONSTRAINT [RightTable_LeftTable_FK] FOREIGN KEY ([LeftTableId]) REFERENCES [LeftTable]([LeftTableId])
 );
 
-/******************************
- * INITIALISATION DES DONNEES *
- ******************************/
 INSERT INTO [LeftTable] VALUES 
 	(1, 'A')
 	, (2, 'B')
