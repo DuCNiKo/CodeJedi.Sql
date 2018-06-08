@@ -1,6 +1,7 @@
-# Le modèle relationnel
+# 1. Le modèle relationnel
 
-[Retour au sommaire](./../README.md#Sommaire)
+* [Retour au sommaire](./../README.md#Sommaire)
+  * [2. Best practices](./2-best-practices.md)
 
 ## Introduction
 
@@ -24,6 +25,11 @@ Les entités sont stockées dans des **tables**. Chaque table a un nombre défin
 > ---|---|---
 > Elon|Musk|29/06/1971
 > Bill|Gates|22/10/1955
+
+| Firstname | Lastname | BirthDate  |
+| --------- | -------- | ---------- |
+| Elon      | Musk     | 29/06/1971 |
+| Bill      | Gates    | 22/10/1955 |
 
 Dans une table, les colonnes ont un type (chaines de caractères fixe ou variable, entier, nombre décimaux, date, ...). Le type définit comment sera stocké l'information. Quelque soit le type (à moins que cela soit interdit par une contrainte), une colonne peut avoir la valeur *NULL*. Il s'agit d'une valeur particulière indiquant justement qu'il n'y a pas de valeur :)
 

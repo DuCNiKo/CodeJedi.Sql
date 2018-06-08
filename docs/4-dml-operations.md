@@ -1,6 +1,8 @@
-# SELECT & DML (Data Modification Language)
+# 4. SELECT & DML (Data Modification Language)
 
-[Retour au sommaire](./../README.md#Sommaire)
+* [Retour au sommaire](./../README.md#Sommaire)
+  * [3. La création du modèle](./3-ddl-operations.md)
+  * [5. Les fonctions de base](./5-basic-functions.md)
 
 Les opéraitions DML sont celles qui permettent soit d'alimenter, soit de lire les données présentes dans les tables. Il existe donc des commandes pour lire `SELECT`, insérer `INSERT`, modifier `UPDATE` ou supprimer `DELETE` les données.
 
@@ -143,9 +145,83 @@ INSERT INTO [Person].[AddressType] ([Name]) VALUES
 
 ## UPDATE
 
+La modification des données dans une table s'effectue avec la commande `UPDATE` :
+
+```SQL
+-- Syntax for SQL Server and Azure SQL Database
+
+[ WITH <common_table_expression> [...n] ]
+UPDATE
+    table_alias
+    SET
+        { column_name = { expression | DEFAULT | NULL } } [ ,...n ]
+    [ FROM{ <table_source> } [ ,...n ] ]
+    [ WHERE <search_condition> ]
+[ ; ]
+```
+
+La commande comment par le mot clé `UPDATE` suivi de l'identifiant de la table où l'on souhaite modifier des valeurs. Ensuite, le mot-clé `SET` permet de spécifier les colonnes à modifier ainsi que les valeurs.
+
+Pour limiter le nombre de lignes à modifier, on peut utiliser une clause `WHERE` classique (avec des prédicats) ou utiliser une autre requête avec le mot clé `FROM`.
+
 ## DELETE
 
+La suppression de lignes dans une table s'effectue avec la commande `DELETE` :
+
+```SQL
+-- Syntax for SQL Server and Azure SQL Database
+
+DELETE FROM table_alias
+    [ WHERE <search_condition> ]
+[; ]
+```
+
+La suppression est relativement simple. Il suffit d'indiquer après les mots-clés `DELETE FROM` le nom de la table et d'indiquer avec la clause `WHERE` les prédicats filtrant les lignes à supprimer. Attention, pour cette instruction, il faut obligatoirement un point-virgule pour finir l'instruction.
+
 ## MERGE
+
+La commande `MERGE` permet, en une seule requête, de mixer les actions d'insertions, modifications et suppressions sur une table (appelé cible) par rapport à un jeu de données source.
+
+```SQL
+MERGE <target_table>
+    USING <table_source> ON <merge_search_condition>
+    [ WHEN MATCHED [ AND <clause_search_condition> ] THEN <merge_matched> ]
+    [ WHEN NOT MATCHED [ BY TARGET ] [ AND <clause_search_condition> ] THEN <merge_not_matched> ]
+    [ WHEN NOT MATCHED BY SOURCE [ AND <clause_search_condition> ] THEN <merge_matched> ] [ ...n ]
+;
+
+<table_source> ::=
+{
+    table_or_view_name [ [ AS ] table_alias ] [ <tablesample_clause> ]
+    | rowset_function [ [ AS ] table_alias ]
+    | user_defined_function [ [ AS ] table_alias ]
+    | <joined_table>
+}
+
+<merge_matched>::= { UPDATE SET <set_clause> | DELETE }
+
+<set_clause>::= SET column_name = { expression | DEFAULT | NULL } [ ,...n ]
+
+<merge_not_matched>::=
+{
+    INSERT [ ( column_list ) ]
+        {
+            VALUES ( values_list )
+            | DEFAULT VALUES
+        }
+}
+```
+
+La requête `MERGE` peut se décomposer en trois parties :
+
+* La partie avec le mot-clé `MERGE` qui permet de définir la table que l'on souhaite modifier (aussi appelé la cible).
+* La partie avec le mot-clé `USING` qui permet de définir un jeu de données qui sert à effectuer les modifications (aussi appelé la source) ainsi que le prédicat permettant de lier les données cibles et les données sources.
+* Les parties commençant par `WHEN` qui indique les modifications à apporter :
+  * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
+  * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
+  * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
+
+> Généralement, on effecute un `UPDATE` sur le `MATCH` et un `DELETE` sur le `NOT MATCHED BY SOURCE`.
 
 ## Exercices
 
