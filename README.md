@@ -20,4 +20,14 @@ Il s'agit du support pour la formation SQL. Le but est d'apprendre et de savoir 
 
 Pour pouvoir suivre cette formation, il est nécessaire d'avoir une instance SQL Serveur d'installée. De préférence, avoir la dernière version complète mais une version [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) est suffisante (installable avec Visual Studio).
 
-Tout au long de ce cours, nous allons créer des tables, insérer des données pour illustrer chaque chapître. Vous trouverez dans le répertoire `src` des fichiers d'exemples (xxx.exemple.sql) et des fichiers contenant les réponses aux questions (xxx.answers.sql).
+Tout au long de ce cours, nous allons créer des tables, insérer des données pour illustrer chaque chapître. Vous trouverez dans le répertoire `src` des fichiers d'initialisation (xxx.initialization.sql), d'exemples (xxx.exemple.sql) et des fichiers contenant les réponses aux questions (xxx.answers.sql). Chaque chapître sera classé par schéma.
+
+### Initialisation de la base de données
+
+Ouvrir SSMS et se connecter à une instance SQL où vous avez des droits d'adminsitration (généralement celle que vous avez installé sur votre poste). Ouvrir une requête et taper la commande suivante :
+
+```SQL
+CREATE DATABASE [CodeJediSQL];
+```
+
+La base devrait maintenant être visible le panneau "Object Explorer" (après un rafraichissement avec la touche <kbd>F5</kbd>).

@@ -176,11 +176,11 @@ DELETE FROM table_alias
 [; ]
 ```
 
-La suppression est relativement simple. Il suffit d'indiquer après les mots-clés `DELETE FROM` le nom de la table et d'indiquer avec la clause `WHERE` les prédicats filtrant les lignes à supprimer.
+La suppression est relativement simple. Il suffit d'indiquer après les mots-clés `DELETE FROM` le nom de la table et d'indiquer avec la clause `WHERE` les prédicats filtrant les lignes à supprimer. Attention, pour cette instruction, il faut obligatoirement un point-virgule pour finir l'instruction.
 
 ## MERGE
 
-La commande `MERGE` permet, en une seule requête, de mixer les actions d'insertions, modifications et suppressions sur une table.
+La commande `MERGE` permet, en une seule requête, de mixer les actions d'insertions, modifications et suppressions sur une table (appelé cible) par rapport à un jeu de données source.
 
 ```SQL
 MERGE <target_table>
@@ -217,8 +217,8 @@ La requête `MERGE` peut se décomposer en trois parties :
 * La partie avec le mot-clé `MERGE` qui permet de définir la table que l'on souhaite modifier (aussi appelé la cible).
 * La partie avec le mot-clé `USING` qui permet de définir un jeu de données qui sert à effectuer les modifications (aussi appelé la source) ainsi que le prédicat permettant de lier les données cibles et les données sources.
 * Les parties commençant par `WHEN` qui indique les modifications à apporter :
-  * `MATCH` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
-  * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié à une ligne de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
+  * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
+  * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
   * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
 
 > Généralement, on effecute un `UPDATE` sur le `MATCH` et un `DELETE` sur le `NOT MATCHED BY SOURCE`.
