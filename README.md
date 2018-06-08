@@ -20,4 +20,4 @@ Il s'agit du support pour la formation SQL. Le but est d'apprendre et de savoir 
 
 Pour pouvoir suivre cette formation, il est nécessaire d'avoir une instance SQL Serveur d'installée. De préférence, avoir la dernière version complète mais une version [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) est suffisante (installable avec Visual Studio).
 
-De plus les exercices se baseront sur la base exemple Northwind de Microsoft. Le backup de cette base de données se trouve dans le repository Git dans le répertoire `tools/backup`.
+Tout au long de ce cours, nous allons créer des tables, insérer des données pour illustrer chaque chapître. Vous trouverez dans le répertoire `src` des fichiers d'exemples (xxx.exemple.sql) et des fichiers contenant les réponses aux questions (xxx.answers.sql).

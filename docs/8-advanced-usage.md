@@ -2,10 +2,12 @@
 
 [Retour au sommaire](./../README.md#Sommaire)
 
-## CTE / Récursivité
+## CTE / Récursivité / CROSS APPLY
 
 ## Procédure stockées
 
 ## Functions
 
 ## Tables temporaires
+
+## CURSOR

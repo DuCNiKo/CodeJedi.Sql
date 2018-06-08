@@ -6,7 +6,21 @@
 
 Cette section concerne les habitudes à prendre quand on travaille sur SQL Server.
 
-[Poor SQL](http://poorsql.com/)
+## Le français
+
+C'est le tout premier (et sûrement le plus important) des conseils que l'on peut vous donner. Quand vous avez une requête SQL à écrire qui est complexe. Ecrivez-la en français le plus précisément possible. Cela vous aidera à savoir comment formuler la requête SQL.
+
+> Je souhaite obtenir les adresses email des clients français ayant acheté le produit XXX durant l'année 2017. Avec l'habitude, vous saurez qu'il faudra écrire une requête comme cela :
+> ```SQL
+> SELECT C.[Email]
+> FROM [Customers] C
+>   INNER JOIN [Country] CO ON C.[CountryId] = CO.[CountryId]
+>   INNER JOIN [Invoice] I ON I.[ClientId] = C.[ClientId]
+>   INNER JOIN [InvoiceDetail] ID ON I.[InvoiceId] = ID.[InvoiceId]
+>   INNER JOIN [Product] P ON FD.[ProductId] = P.[ProductId]
+> WHERE CO.[Code] = "FR"
+>   AND P.[Name] = "XXX"
+>   AND DATEPART(YEAR, F.[InvoiceDate]) = 2017;
 
 ## Indentation
 
@@ -52,7 +66,7 @@ FROM (
     JOIN Table1
 ```
 
-## mot clé en majuscule
+## Mot-clé en majuscule
 
 Toujours pour améliorer la lisibilité, pensez à mettre les mot clés en majuscule. Cela permet de différencier rapidement les mot-clés des identifiants de table/colonne.
 
