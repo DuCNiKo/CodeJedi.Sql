@@ -2,6 +2,7 @@
 
 * [5. Les fonctions de base](#5-les-fonctions-de-base)
   * [ISNULL](#isnull)
+  * [EXISTS](#exists)
   * [CAST et CONVERT](#cast-et-convert)
     * [CAST](#cast)
     * [CONVERT](#convert)
@@ -10,6 +11,7 @@
     * [DATEADD](#dateadd)
     * [DATEDIFF](#datediff)
     * [DATEPART](#datepart)
+  * [Exercices](#exercices)
 
 On va voir ici les fonctions existantes dans SQL Server qui servent le plus souvent.
 
@@ -26,6 +28,16 @@ SELECT * FROM [MaTable] WHERE @MonParametre IS NULL OR @MonParametre = [MaValeur
 -- Utilisation de ISNULL
 SELECT * FROM [MaTable] WHERE ISNULL(@MonParametre, [MaValeur]) = [MaValeur];
 ```
+
+## EXISTS
+
+Syntaxe:
+
+```SQL
+  EXISTS( subquery )
+```
+
+Cette fonction revoie un booléen indiquant si la sous-requête renvoie des lignes ou non.
 
 ## CAST et CONVERT
 
@@ -120,3 +132,12 @@ DATEPART(<datepart>, <date>)
 -- Exemple obtenir le mois courant
 DATEPART(m, GETDATE())
 ```
+
+## Exercices
+
+A partir de sa date de naissace, obtenir les informations suivantes :
+
+1. La date 125 jours après la naissance.
+2. L'âge que l'on aura durant l'année.
+3. L'âge en minutes.
+4. Obtenir dans 3 colonnes différentes, le jour, le mois et l'année de naissance.

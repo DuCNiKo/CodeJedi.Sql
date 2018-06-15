@@ -193,3 +193,9 @@ FROM [Table1] T1
 > *NULL*|*NULL*|D|4
 
 ## Exercices
+
+Le but est d'obtenir en une seule requête les informations suivantes :
+
+1. Afficher les noms, prénoms des employés (290 employés).
+2. Ajouter à la requête précédentes les téléphones.
+3. Modifier la requête précédente pour afficher tous les employés et leurs téléphones portables (s'il en ont un).
