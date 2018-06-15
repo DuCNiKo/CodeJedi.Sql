@@ -1,8 +1,16 @@
 # 4. SELECT & DML (Data Modification Language)
 
-* [Retour au sommaire](./../README.md#Sommaire)
-  * [3. La création du modèle](./3-ddl-operations.md)
-  * [5. Les fonctions de base](./5-basic-functions.md)
+* [4. SELECT & DML (Data Modification Language)](#4-select--dml-data-modification-language)
+    * [SELECT](#select)
+        * [WHERE](#where)
+        * [ORDER BY](#order-by)
+        * [DISTINCT](#distinct)
+        * [TOP x](#top-x)
+    * [INSERT](#insert)
+    * [UPDATE](#update)
+    * [DELETE](#delete)
+    * [MERGE](#merge)
+    * [Exercices](#exercices)
 
 Les opéraitions DML sont celles qui permettent soit d'alimenter, soit de lire les données présentes dans les tables. Il existe donc des commandes pour lire `SELECT`, insérer `INSERT`, modifier `UPDATE` ou supprimer `DELETE` les données.
 
@@ -217,9 +225,9 @@ La requête `MERGE` peut se décomposer en trois parties :
 * La partie avec le mot-clé `MERGE` qui permet de définir la table que l'on souhaite modifier (aussi appelé la cible).
 * La partie avec le mot-clé `USING` qui permet de définir un jeu de données qui sert à effectuer les modifications (aussi appelé la source) ainsi que le prédicat permettant de lier les données cibles et les données sources.
 * Les parties commençant par `WHEN` qui indique les modifications à apporter :
-  * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
-  * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
-  * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
+    * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
+    * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
+    * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
 
 > Généralement, on effecute un `UPDATE` sur le `MATCH` et un `DELETE` sur le `NOT MATCHED BY SOURCE`.
 
@@ -228,20 +236,20 @@ La requête `MERGE` peut se décomposer en trois parties :
 Voici ce que vous devez faire :
 
 1. Les RH souhaitent connaitre tous les départements existants.
-1. Les achats souhaitent avoir les produits mis en vente depuis le 1er janvier 2015 classé par prix standard croissant.
-1. Ajouter un département 'French stores' dans le group 'Stores'.
-1. Il y a une erreur dans la commande du magasin 'Seventh Bike Store' faite le 31 mai 2011. Ils souhaitaient commander 3 'Sport-100 Helmet, Black'. Faites un script de modification.
-1. Finalement, il faut supprimer le département 'French stores'.
-1. Créer une requête `MERGE` permettant de s'assurer que l'on a dans la table AddressType, les informations suivantes
+2. Les achats souhaitent avoir les produits mis en vente depuis le 1er janvier 2010 classé par prix standard croissant.
+3. Ajouter un département 'French stores' dans le group 'Stores'.
+4. Il y a une erreur dans la commande du magasin 'Seventh Bike Store' faite le 31 mai 2011. Ils souhaitaient commander 3 'Sport-100 Helmet, Black'. Faites un script de modification.
+5. Finalement, il faut supprimer le département 'French stores'.
+6. Créer une requête `MERGE` permettant de s'assurer que l'on a dans la table AddressType, les informations suivantes
 
-AddressTypeID|Name|rowguid|ModifiedDate
----|---|---|---
-1|Billing|B84F78B1-4EFE-4A0E-8CB7-70E9F112F886|2008-04-30 00:00:00.000
-2|Home|41BC2FF6-F0FC-475F-8EB9-CEC0805AA0F2|2008-04-30 00:00:00.000
-3|Main Office|8EEEC28C-07A2-4FB9-AD0A-42D4A0BBC575|2008-04-30 00:00:00.000
-4|Primary|24CB3088-4345-47C4-86C5-17B535133D1E|2008-04-30 00:00:00.000
-5|Shipping|B29DA3F8-19A3-47DA-9DAA-15C84F4A83A5|2008-04-30 00:00:00.000
-6|Archives|A67F238A-5BA2-444B-966C-0467ED9C427F|2008-04-30 00:00:00.000
-7|Factory|6658C6D7-F87A-4BD4-9892-C2ADCA22328D|2018-04-27 00:00:00.000
+| AddressTypeID | Name        | rowguid                              | ModifiedDate |
+| ------------- | ----------- | ------------------------------------ | ------------ |
+| 1             | Billing     | 00000000-0000-0000-0000-000000000001 | Date du jour |
+| 2             | Home        | 00000000-0000-0000-0000-000000000002 | Date du jour |
+| 3             | Main Office | 00000000-0000-0000-0000-000000000003 | Date du jour |
+| 4             | Primary     | 00000000-0000-0000-0000-000000000004 | Date du jour |
+| 5             | Shipping    | 00000000-0000-0000-0000-000000000005 | Date du jour |
+| 6             | Archives    | 00000000-0000-0000-0000-000000000006 | Date du jour |
+| 7             | Factory     | 00000000-0000-0000-0000-000000000007 | Date du jour |
 
 > Tips: La première colonne est une colonne `IDENTITY`. Le moteur interdit donc de spécifier la valeur de cette colonne lors d'une insertion ou d'une modification. Il est possible de désactiver ce fonctionnement en utilisant la commande `SET IDENTITY_INSERT <table_name> ON | OFF`.
