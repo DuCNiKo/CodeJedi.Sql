@@ -3,6 +3,7 @@
 * [5. Les fonctions de base](#5-les-fonctions-de-base)
   * [ISNULL](#isnull)
   * [EXISTS](#exists)
+  * [CASE ... WHEN](#case--when)
   * [CAST et CONVERT](#cast-et-convert)
     * [CAST](#cast)
     * [CONVERT](#convert)
@@ -38,6 +39,32 @@ Syntaxe:
 ```
 
 Cette fonction revoie un booléen indiquant si la sous-requête renvoie des lignes ou non.
+
+## CASE ... WHEN
+
+Cette fonction permet d'effectuer des tests et de renvoyer une valeur en fonction du résultat du ou des tests. La syntaxe est la suivante :
+
+```SQL
+-- Simple CASE expression
+CASE input_expression
+     WHEN when_expression THEN result_expression [ ...n ]
+     [ ELSE else_result_expression ]
+END
+
+-- Searched CASE expression:  
+CASE  
+     WHEN Boolean_expression THEN result_expression [ ...n ]
+     [ ELSE else_result_expression ]
+END
+```
+
+Si on met une expression avec le `CASE`, les `WHEN` ne contiendront que des valeurs qui seront comparées à la première expression. Si on ne met pas d'expression dans le `CASE`, il faut, dans chaque `WHEN` avoir une expression booléenne. C'est cette dernière qui sera évaluée par le moteur pour sélectionner quelle valeur à retourner.
+
+La valeur `NULL` ne peux pas être mise dans les clauses `WHEN` car `NULL` n'est égale à aucune valeur (même pas à lui-même). Si on souhaite tester la nullité d'une valeur, il faut utiliser la deuxième forme (sans l'input_expression) et mettre `IS NULL` dans les clauses `WHEN`.
+
+Dans tous les cas, le moteur itère sur les `WHEN` et renvoie **la première valeur** (après le `THEN`) qui correspond. S'il y a deux clauses qui sont vraies, la valeur retournée sera celle de la première. Enfin, il est possible d'utiliser le mot-clé `ELSE` pour renvoyer une valeur si aucun prédicat n'est vrai.
+
+Le mot-clé `END` permet d'indiquer la fin de l'instruction.
 
 ## CAST et CONVERT
 
