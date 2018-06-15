@@ -1,8 +1,15 @@
 # 2. Best practices
 
-* [Retour au sommaire](./../README.md#Sommaire)
-  * [1. Le modèle relationnel](./1-relational-model.md)
-  * [3. La création du modèle](./3-ddl-operations.md)
+* [2. Best practices](#2-best-practices)
+  * [Le français](#le-français)
+  * [Indentation](#indentation)
+    * [Requête simple](#requête-simple)
+    * [Sous-requêtes](#sous-requêtes)
+  * [Mot-clé en majuscule](#mot-clé-en-majuscule)
+  * [Crochet pour les colonnes](#crochet-pour-les-colonnes)
+  * [Scripts de modifications de données en base](#scripts-de-modifications-de-données-en-base)
+    * [BEGIN TRAN ... ROLLBACK](#begin-tran--rollback)
+    * [Status bar](#status-bar)
 
 Cette section concerne les habitudes à prendre quand on travaille sur SQL Server.
 

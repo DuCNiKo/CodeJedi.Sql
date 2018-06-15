@@ -1,8 +1,15 @@
 # 5. Les fonctions de base
 
-* [Retour au sommaire](./../README.md#Sommaire)
-  * [4. Les opérations de bases](./4-dml-operations.md)
-  * [6. Les jointures](./6-joins.md)
+* [5. Les fonctions de base](#5-les-fonctions-de-base)
+  * [ISNULL](#isnull)
+  * [CAST et CONVERT](#cast-et-convert)
+    * [CAST](#cast)
+    * [CONVERT](#convert)
+  * [Fonctions de dates](#fonctions-de-dates)
+    * [GETDATE](#getdate)
+    * [DATEADD](#dateadd)
+    * [DATEDIFF](#datediff)
+    * [DATEPART](#datepart)
 
 On va voir ici les fonctions existantes dans SQL Server qui servent le plus souvent.
 
@@ -68,6 +75,8 @@ Toutes les fonctions de date/heure se trouvent [ici](https://docs.microsoft.com/
 > | millisecond | ms            |
 > | microsecond | mcs           |
 > | nanosecond  | ns            |
+
+Pour créer un objet datetime à partir d'un texte tapé, il est préférable d'utiliser la notation suivante : `yyyy-MM-dd HH:mm:ss.nnnn`. SQL Server traduira automatiquement ce texte en type DATETIME et avec les bonnes valeurs. Cela évite d'être dépendant de la langue du serveur, de l'instance ou de la base de données. En américain, les dates sont au format MM/dd/yyyy alors qu'en français, elles sont au format dd/MM/yyyy. Cela évite les confusions amenées par '02/06/2018' qui se traduit par 6 février en américain et 2 juin en français.
 
 ### GETDATE
 

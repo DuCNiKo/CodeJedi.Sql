@@ -1,8 +1,14 @@
 # 6. Les jointures
 
-* [Retour au sommaire](./../README.md#Sommaire)
-  * [5. Les fonctions de base](./5-basic-functions.md)
-  * [7. Les fonctions d'agrégat](./7-aggregates-functions.md)
+* [6. Les jointures](#6-les-jointures)
+  * [Syntaxe](#syntaxe)
+  * [CROSS JOIN](#cross-join)
+  * [INNER JOIN](#inner-join)
+  * [LEFT/RIGHT/FULL JOIN](#leftrightfull-join)
+    * [LEFT JOIN](#left-join)
+    * [RIGHT JOIN](#right-join)
+    * [FULL JOIN](#full-join)
+  * [Exercices](#exercices)
 
 L'utilisation de jointures est primordiale en SQL. Cela permet de lier deux jeux de données ensembles. Cela veut dire que si on joint deux tables, on obtient une troisième table contenant l'intégralité des colonnes des deux tables jointes. Le nombre de lignes change en fonction du type de jointure utilisé.
 

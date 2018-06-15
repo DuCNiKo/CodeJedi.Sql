@@ -1,16 +1,16 @@
 # 4. SELECT & DML (Data Modification Language)
 
 * [4. SELECT & DML (Data Modification Language)](#4-select--dml-data-modification-language)
-    * [SELECT](#select)
-        * [WHERE](#where)
-        * [ORDER BY](#order-by)
-        * [DISTINCT](#distinct)
-        * [TOP x](#top-x)
-    * [INSERT](#insert)
-    * [UPDATE](#update)
-    * [DELETE](#delete)
-    * [MERGE](#merge)
-    * [Exercices](#exercices)
+  * [SELECT](#select)
+    * [WHERE](#where)
+    * [ORDER BY](#order-by)
+    * [DISTINCT](#distinct)
+    * [TOP x](#top-x)
+  * [INSERT](#insert)
+  * [UPDATE](#update)
+  * [DELETE](#delete)
+  * [MERGE](#merge)
+  * [Exercices](#exercices)
 
 Les opéraitions DML sont celles qui permettent soit d'alimenter, soit de lire les données présentes dans les tables. Il existe donc des commandes pour lire `SELECT`, insérer `INSERT`, modifier `UPDATE` ou supprimer `DELETE` les données.
 
@@ -225,9 +225,9 @@ La requête `MERGE` peut se décomposer en trois parties :
 * La partie avec le mot-clé `MERGE` qui permet de définir la table que l'on souhaite modifier (aussi appelé la cible).
 * La partie avec le mot-clé `USING` qui permet de définir un jeu de données qui sert à effectuer les modifications (aussi appelé la source) ainsi que le prédicat permettant de lier les données cibles et les données sources.
 * Les parties commençant par `WHEN` qui indique les modifications à apporter :
-    * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
-    * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
-    * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
+  * `MATCHED` : Le prédicat fait qu'une ligne de la source est relié à une ligne de la cible. Dans ce cas, on peut soit faire un `UPDATE`, soit faire un `DELETE`.
+  * `NOT MATCHED BY TARGET` : Le prédicat fait qu'aucune ligne de la cible ne peut être relié aux lignes de la source. Dans ce cas, on peut insérer les données manquante avec le mot-clé `INSERT`.
+  * `NOT MATCHED BY SOURCE` : Le prédicat fait qu'une ligne de la cible ne peut être relié à aucune ligne de la source. On peut, dans ce cas, effectuer les opérations `UPDATE` ou `DELETE`.
 
 > Généralement, on effecute un `UPDATE` sur le `MATCH` et un `DELETE` sur le `NOT MATCHED BY SOURCE`.
 

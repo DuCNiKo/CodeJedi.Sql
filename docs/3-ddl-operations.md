@@ -1,8 +1,17 @@
 # 3. DDL (Data Definition Language)
 
-* [Retour au sommaire](./../README.md#Sommaire)
-  * [2. Best practices](./2-best-practices.md)
-  * [4. Les opérations de bases](./4-dml-operations.md)
+* [3. DDL (Data Definition Language)](#3-ddl-data-definition-language)
+  * [Création (CREATE)](#création-create)
+    * [Les colonnes](#les-colonnes)
+    * [Les contraintes](#les-contraintes)
+  * [Suppression (DROP)](#suppression-drop)
+  * [Modification (ALTER)](#modification-alter)
+    * [Ajout](#ajout)
+    * [Suppression](#suppression)
+    * [Modification](#modification)
+  * [Exercice](#exercice)
+    * [Premières tables](#premières-tables)
+    * [Modifications des tables](#modifications-des-tables)
 
 Les opérations de DDL permettent de créer dans la base de données, tous les éléments qui ne sont pas des données à proprement parlé. Par exemple, elles permettent de créer les tables, colonnes, contraintes mais aussi les procédure stockées, les fonctions, les utilisateurs qui accèdent à la base de données, leurs droits, ...
 
